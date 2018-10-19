@@ -12,7 +12,7 @@ output:
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
-Figure 1. One year lag effect of mean group size @ sessions per year on clan size. There is a 90.96% probability that group size has a positive lag effect on clan size.
+Figure 1. One year lag effect of mean group size @ sessions per year on clan size. There is a 92.04% probability that group size has a positive lag effect on clan size.
 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
@@ -22,7 +22,7 @@ Figure 2. One year lag effect of mean group size @ kills per year on clan size. 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
-Figure 3. One year lag effect of mean group size @ kills per year during the migration on clan size. There is a 99.8% probability that group size has a positive lag effect on clan size.
+Figure 3. One year lag effect of mean group size @ kills per year during the migration on clan size. There is a 99.78% probability that group size has a positive lag effect on clan size.
 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
@@ -41,7 +41,7 @@ Figure 5. Effect of management regime, cattle, and shoats on number of lion grou
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
-Figure 6. Effect of management regime on number of hyena groups and hyena group size. There is a 97.71% probability that there are higher number of groups in the Talek region, and there is a 97.71% probability of higher group size in the Talek region.
+Figure 6. Effect of management regime on number of hyena groups and hyena group size. There is a 97.71% probability that there are higher number of groups in the Talek region, and there is a 80.07% probability of higher group size in the Talek region.
 
 #### Management regime has a positive effect on group size, but lions, cattle, and shoats have a negative effect on group size
 
