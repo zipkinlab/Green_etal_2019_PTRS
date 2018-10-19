@@ -12,7 +12,7 @@ output:
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
-Figure 1. One year lag effect of mean group size @ sessions per year on clan size. There is a 91.83% probability that group size has a positive lag effect on clan size.
+Figure 1. One year lag effect of mean group size @ sessions per year on clan size. There is a 90.96% probability that group size has a positive lag effect on clan size.
 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
@@ -22,12 +22,12 @@ Figure 2. One year lag effect of mean group size @ kills per year on clan size. 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
-Figure 3. One year lag effect of mean group size @ kills per year during the migration on clan size. There is a `round(out$f$beta2[4]*100, digits = 2)`% probability that group size has a positive lag effect on clan size.
+Figure 3. One year lag effect of mean group size @ kills per year during the migration on clan size. There is a 99.8% probability that group size has a positive lag effect on clan size.
 
 
 ![](ZSL_groupsize_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
-Figure 4. One year lag effect of mean group size @ kills per year not during the migration on clan size. There is a 99.96% probability that group size has a positive lag effect on clan size.
+Figure 4. One year lag effect of mean group size @ kills per year not during the migration on clan size. There is a 99.93% probability that group size has a positive lag effect on clan size.
 
 ### Analyses of group size using distance sampling loops
 
