@@ -129,23 +129,23 @@ output:
 <tbody>
   <tr>
    <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> 4.16 </td>
-   <td style="text-align:right;"> -2.26 </td>
-   <td style="text-align:right;"> 10.62 </td>
+   <td style="text-align:right;"> 4.24 </td>
+   <td style="text-align:right;"> -2.12 </td>
+   <td style="text-align:right;"> 10.60 </td>
    <td style="text-align:right;"> 0.90 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> -0.13 </td>
-   <td style="text-align:right;"> -6.14 </td>
-   <td style="text-align:right;"> 6.00 </td>
-   <td style="text-align:right;"> 0.52 </td>
+   <td style="text-align:right;"> -0.20 </td>
+   <td style="text-align:right;"> -6.21 </td>
+   <td style="text-align:right;"> 5.81 </td>
+   <td style="text-align:right;"> 0.53 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 275.25 </td>
-   <td style="text-align:right;"> 269.39 </td>
-   <td style="text-align:right;"> 281.19 </td>
+   <td style="text-align:right;"> 275.19 </td>
+   <td style="text-align:right;"> 269.32 </td>
+   <td style="text-align:right;"> 281.26 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -170,23 +170,23 @@ output:
 <tbody>
   <tr>
    <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> 4.18 </td>
-   <td style="text-align:right;"> -2.24 </td>
+   <td style="text-align:right;"> 4.14 </td>
+   <td style="text-align:right;"> -2.32 </td>
    <td style="text-align:right;"> 10.55 </td>
    <td style="text-align:right;"> 0.90 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> -0.26 </td>
-   <td style="text-align:right;"> -6.26 </td>
-   <td style="text-align:right;"> 5.82 </td>
+   <td style="text-align:right;"> -0.23 </td>
+   <td style="text-align:right;"> -6.09 </td>
+   <td style="text-align:right;"> 5.74 </td>
    <td style="text-align:right;"> 0.53 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 276.19 </td>
-   <td style="text-align:right;"> 270.42 </td>
-   <td style="text-align:right;"> 282.31 </td>
+   <td style="text-align:right;"> 276.25 </td>
+   <td style="text-align:right;"> 270.47 </td>
+   <td style="text-align:right;"> 282.44 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -227,65 +227,65 @@ output:
 <tbody>
   <tr>
    <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> -0.59 </td>
-   <td style="text-align:right;"> -3.91 </td>
-   <td style="text-align:right;"> 3.04 </td>
-   <td style="text-align:right;"> 0.65 </td>
+   <td style="text-align:right;"> 2.12 </td>
+   <td style="text-align:right;"> -2.40 </td>
+   <td style="text-align:right;"> 6.18 </td>
+   <td style="text-align:right;"> 0.85 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> 1.05 </td>
    <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 1.11 </td>
+   <td style="text-align:right;"> 0.92 </td>
+   <td style="text-align:right;"> 1.07 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[1] </td>
-   <td style="text-align:right;"> 0.54 </td>
-   <td style="text-align:right;"> -2.36 </td>
-   <td style="text-align:right;"> 3.51 </td>
-   <td style="text-align:right;"> 0.65 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> -3.65 </td>
+   <td style="text-align:right;"> 4.38 </td>
+   <td style="text-align:right;"> 0.56 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[2] </td>
-   <td style="text-align:right;"> -0.21 </td>
-   <td style="text-align:right;"> -5.70 </td>
-   <td style="text-align:right;"> 5.22 </td>
-   <td style="text-align:right;"> 0.53 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta2[3] </td>
-   <td style="text-align:right;"> -0.56 </td>
-   <td style="text-align:right;"> -5.82 </td>
-   <td style="text-align:right;"> 4.74 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> -3.47 </td>
+   <td style="text-align:right;"> 4.21 </td>
    <td style="text-align:right;"> 0.58 </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> beta2[3] </td>
+   <td style="text-align:right;"> -0.57 </td>
+   <td style="text-align:right;"> -5.30 </td>
+   <td style="text-align:right;"> 4.09 </td>
+   <td style="text-align:right;"> 0.59 </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> beta2[4] </td>
-   <td style="text-align:right;"> 1.94 </td>
-   <td style="text-align:right;"> -1.18 </td>
-   <td style="text-align:right;"> 4.56 </td>
-   <td style="text-align:right;"> 0.91 </td>
+   <td style="text-align:right;"> 5.35 </td>
+   <td style="text-align:right;"> 2.71 </td>
+   <td style="text-align:right;"> 7.93 </td>
+   <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> sig.p </td>
-   <td style="text-align:right;"> 15.51 </td>
+   <td style="text-align:right;"> 15.39 </td>
    <td style="text-align:right;"> 15.01 </td>
-   <td style="text-align:right;"> 16.89 </td>
+   <td style="text-align:right;"> 16.43 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tau.t </td>
-   <td style="text-align:right;"> 1.89 </td>
-   <td style="text-align:right;"> 0.02 </td>
-   <td style="text-align:right;"> 13.97 </td>
+   <td style="text-align:right;"> 3.37 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 18.24 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 418.87 </td>
-   <td style="text-align:right;"> 409.98 </td>
-   <td style="text-align:right;"> 430.46 </td>
+   <td style="text-align:right;"> 408.84 </td>
+   <td style="text-align:right;"> 402.73 </td>
+   <td style="text-align:right;"> 418.32 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -305,65 +305,65 @@ output:
 <tbody>
   <tr>
    <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> -0.69 </td>
-   <td style="text-align:right;"> -4.82 </td>
-   <td style="text-align:right;"> 3.47 </td>
-   <td style="text-align:right;"> 0.61 </td>
+   <td style="text-align:right;"> 1.07 </td>
+   <td style="text-align:right;"> -2.78 </td>
+   <td style="text-align:right;"> 5.08 </td>
+   <td style="text-align:right;"> 0.69 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> 1.04 </td>
-   <td style="text-align:right;"> 0.96 </td>
-   <td style="text-align:right;"> 1.13 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 1.07 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[1] </td>
-   <td style="text-align:right;"> 0.68 </td>
-   <td style="text-align:right;"> -2.30 </td>
-   <td style="text-align:right;"> 3.72 </td>
-   <td style="text-align:right;"> 0.67 </td>
+   <td style="text-align:right;"> 0.16 </td>
+   <td style="text-align:right;"> -3.80 </td>
+   <td style="text-align:right;"> 4.29 </td>
+   <td style="text-align:right;"> 0.52 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[2] </td>
-   <td style="text-align:right;"> -0.01 </td>
-   <td style="text-align:right;"> -5.45 </td>
-   <td style="text-align:right;"> 5.42 </td>
-   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> -3.63 </td>
+   <td style="text-align:right;"> 4.01 </td>
+   <td style="text-align:right;"> 0.54 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[3] </td>
-   <td style="text-align:right;"> 0.01 </td>
-   <td style="text-align:right;"> -5.37 </td>
-   <td style="text-align:right;"> 5.27 </td>
-   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> -0.87 </td>
+   <td style="text-align:right;"> -5.69 </td>
+   <td style="text-align:right;"> 3.72 </td>
+   <td style="text-align:right;"> 0.63 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[4] </td>
-   <td style="text-align:right;"> 1.13 </td>
-   <td style="text-align:right;"> -1.78 </td>
-   <td style="text-align:right;"> 4.20 </td>
-   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 2.36 </td>
+   <td style="text-align:right;"> -0.23 </td>
+   <td style="text-align:right;"> 5.04 </td>
+   <td style="text-align:right;"> 0.96 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> sig.p </td>
-   <td style="text-align:right;"> 15.41 </td>
+   <td style="text-align:right;"> 15.42 </td>
    <td style="text-align:right;"> 15.01 </td>
-   <td style="text-align:right;"> 16.49 </td>
+   <td style="text-align:right;"> 16.55 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tau.t </td>
-   <td style="text-align:right;"> 3.46 </td>
-   <td style="text-align:right;"> 0.07 </td>
-   <td style="text-align:right;"> 18.52 </td>
+   <td style="text-align:right;"> 2.91 </td>
+   <td style="text-align:right;"> 0.06 </td>
+   <td style="text-align:right;"> 16.12 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 411.50 </td>
-   <td style="text-align:right;"> 404.27 </td>
-   <td style="text-align:right;"> 422.64 </td>
+   <td style="text-align:right;"> 410.41 </td>
+   <td style="text-align:right;"> 403.76 </td>
+   <td style="text-align:right;"> 420.21 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -373,7 +373,7 @@ output:
 
 ![](ZSL_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
-#### Figure 12. Correlation between sub-adult survival and growth rate.
+#### Figure 13. Correlation between sub-adult survival and growth rate.
 
 
 #### Table 7. Parameter estimates for sub social partners predicting growth rate
@@ -391,22 +391,22 @@ output:
   <tr>
    <td style="text-align:left;"> beta0 </td>
    <td style="text-align:right;"> 1.04 </td>
-   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 0.98 </td>
    <td style="text-align:right;"> 1.11 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> 0.06 </td>
+   <td style="text-align:right;"> 0.07 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.97 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> -24.99 </td>
-   <td style="text-align:right;"> -29.42 </td>
-   <td style="text-align:right;"> -16.22 </td>
+   <td style="text-align:right;"> -25.03 </td>
+   <td style="text-align:right;"> -29.40 </td>
+   <td style="text-align:right;"> -16.50 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -427,7 +427,7 @@ output:
   <tr>
    <td style="text-align:left;"> beta0 </td>
    <td style="text-align:right;"> 0.75 </td>
-   <td style="text-align:right;"> 0.68 </td>
+   <td style="text-align:right;"> 0.69 </td>
    <td style="text-align:right;"> 0.81 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
@@ -440,9 +440,9 @@ output:
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> -28.44 </td>
-   <td style="text-align:right;"> -33.18 </td>
-   <td style="text-align:right;"> -19.58 </td>
+   <td style="text-align:right;"> -28.34 </td>
+   <td style="text-align:right;"> -33.16 </td>
+   <td style="text-align:right;"> -18.92 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
@@ -452,11 +452,11 @@ output:
 
 <img src="../img/FarrIR2.png" width="750" height="600" />
 
-#### Figure 13. Group sizes of carnivores between Talek and Mara Triangle (from Farr et al. in review).
+#### Figure 14. Group sizes of carnivores between Talek and Mara Triangle (from Farr et al. in review).
 
 ![](ZSL_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
-#### Figure 14. Mean and sd of average monthly numbers for each prey type. Comparison of pre and post 08.
+#### Figure 15. Mean and sd of average monthly numbers for each prey type. Comparison of pre and post 08.
 
 ![](ZSL_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
