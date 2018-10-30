@@ -1,4 +1,4 @@
-#Vignette #1 Code
+# Vignette #1 Code
 
 Model for vignette #1. 
 
@@ -68,69 +68,69 @@ Vignette 1 Table S1. JAGS output for the above model.
 <tbody>
   <tr>
    <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> 1.67 </td>
-   <td style="text-align:right;"> -1.74 </td>
-   <td style="text-align:right;"> 5.79 </td>
-   <td style="text-align:right;"> 0.78 </td>
+   <td style="text-align:right;"> 1.25 </td>
+   <td style="text-align:right;"> -2.30 </td>
+   <td style="text-align:right;"> 5.48 </td>
+   <td style="text-align:right;"> 0.72 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta1 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 0.92 </td>
-   <td style="text-align:right;"> 1.05 </td>
+   <td style="text-align:right;"> 0.93 </td>
+   <td style="text-align:right;"> 1.06 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[1] </td>
-   <td style="text-align:right;"> -0.26 </td>
-   <td style="text-align:right;"> -5.07 </td>
-   <td style="text-align:right;"> 4.67 </td>
-   <td style="text-align:right;"> 0.54 </td>
+   <td style="text-align:right;"> -0.43 </td>
+   <td style="text-align:right;"> -5.27 </td>
+   <td style="text-align:right;"> 4.45 </td>
+   <td style="text-align:right;"> 0.57 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[2] </td>
-   <td style="text-align:right;"> 1.03 </td>
-   <td style="text-align:right;"> -3.55 </td>
-   <td style="text-align:right;"> 5.58 </td>
-   <td style="text-align:right;"> 0.67 </td>
+   <td style="text-align:right;"> 1.06 </td>
+   <td style="text-align:right;"> -3.50 </td>
+   <td style="text-align:right;"> 5.61 </td>
+   <td style="text-align:right;"> 0.68 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[3] </td>
-   <td style="text-align:right;"> 0.24 </td>
-   <td style="text-align:right;"> -5.02 </td>
-   <td style="text-align:right;"> 5.46 </td>
-   <td style="text-align:right;"> 0.54 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> -5.10 </td>
+   <td style="text-align:right;"> 5.52 </td>
+   <td style="text-align:right;"> 0.53 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> beta2[4] </td>
-   <td style="text-align:right;"> 5.03 </td>
-   <td style="text-align:right;"> 1.97 </td>
-   <td style="text-align:right;"> 8.05 </td>
+   <td style="text-align:right;"> 4.98 </td>
+   <td style="text-align:right;"> 1.95 </td>
+   <td style="text-align:right;"> 7.91 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> sig.p </td>
-   <td style="text-align:right;"> 15.45 </td>
+   <td style="text-align:right;"> 15.44 </td>
    <td style="text-align:right;"> 15.01 </td>
-   <td style="text-align:right;"> 16.69 </td>
+   <td style="text-align:right;"> 16.65 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tau.t </td>
-   <td style="text-align:right;"> 3.11 </td>
-   <td style="text-align:right;"> 0.05 </td>
-   <td style="text-align:right;"> 17.11 </td>
+   <td style="text-align:right;"> 3.27 </td>
+   <td style="text-align:right;"> 0.06 </td>
+   <td style="text-align:right;"> 19.25 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 413.43 </td>
-   <td style="text-align:right;"> 406.74 </td>
-   <td style="text-align:right;"> 423.46 </td>
+   <td style="text-align:right;"> 413.34 </td>
+   <td style="text-align:right;"> 406.77 </td>
+   <td style="text-align:right;"> 423.42 </td>
    <td style="text-align:right;"> 1.00 </td>
   </tr>
 </tbody>
 </table>
-![](Vignette1_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](../Figures/Figure3.png)<!-- -->
 
-Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.84% probability that group size has a positive lag effect on clan size.
+Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.8% probability that group size has a positive lag effect on clan size.
