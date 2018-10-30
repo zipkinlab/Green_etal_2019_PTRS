@@ -131,6 +131,6 @@ Vignette 1 Table S1. JAGS output for the above model.
   </tr>
 </tbody>
 </table>
-![](../Figures/Figure3.png)<!-- -->
+![](https://raw.githubusercontent.com/farrmt/ZSL/master/Figures/Figure3.png)
 
 Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.8% probability that group size has a positive lag effect on clan size.
