@@ -1,0 +1,178 @@
+---
+title: "Vignette #1 Code"
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r, include=FALSE}
+#-Libraries-#
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(ggthemes)
+library(jagsUI)
+
+#-Functions-#
+corr_eqn <- function(x,y, digits = 2) {
+  corr_coef <- round(cor(x, y), digits = digits)
+  paste(corr_coef)
+}
+
+gm_mean = function(x, na.rm=TRUE){
+  exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))
+}
+
+#-Import data-#
+file1 <- read.csv("../RawData/yearly_descriptives.csv", header = TRUE)
+file2 <- read.csv("../RawData/yearly_demography.csv", header = TRUE)
+file3 <- read.csv("../RawData/LH1SessionsFinal_AllClansCompiled.csv", header = TRUE)
+file4 <- read.csv("../RawData/sessions_per_year.csv", header = TRUE)
+file5 <- read.csv("../RawData/behavior_at_kills.csv", header = TRUE)
+file6 <- read.csv("../RawData/group_size_by_year.csv", header = TRUE)
+file7 <- read.csv("../RawData/HerbivoresThrough2013.csv", header = TRUE)
+
+#-Data manipluation-#
+data <- file1 #Use file 1 as baseline
+colnames(file2)[4] <- "af.size" #Change to adult female abundance
+data <- data %>% right_join(., file2, by = c("year", "clan")) #join file 2 to data by year and clan
+data <- data[,-5] #remove unecessary column
+colnames(file3)[c(1,6)] <- c("clan", "year") #Change to lower case
+data <- data %>% left_join(., file3 %>% 
+                              filter(clan %in% c("serena.n", "serena.s", "happy.zebra", "talek") & no_intx_yes_no > 0) %>%
+                              droplevels() %>%
+                              group_by(clan, year) %>%
+                              summarize(hyn_leo = n()), by = c("year", "clan")) #Summarize freq of lion/hyena interactions
+data <- data %>% left_join(., file4, by = c("year", "clan")) %>% mutate(hyn_leo_per = hyn_leo/num.sessions) #Calculate percent of sessions as lion/hyena interactions
+data <- data %>% left_join(., file5 %>%
+                              group_by(clan, year) %>%
+                              summarize(gs.kill = mean(num.ids)), by = c("year", "clan")) #Summarize group size at kills by year and clan
+data <- data %>% left_join(., file5 %>%
+                              group_by(clan, year) %>%
+                              filter(migration == "migration") %>%
+                              summarize(gs.kill.mig = mean(num.ids)), by = c("year", "clan")) #Summarize group size at kills by year and clan and migration
+data$gs.kill.mig[is.na(data$gs.kill.mig)] <- 0 #Replace NA with zero
+data <- data %>% left_join(., file5 %>%
+                              group_by(clan, year) %>%
+                              filter(migration == "no.migration") %>%
+                              summarize(gs.kill.nomig = mean(num.ids)), by = c("year", "clan")) #Summarize group size at kills by year and clan and no migration
+data$gs.kill.nomig[is.na(data$gs.kill.nomig)] <- 0 #Replace NA with zero
+data <- data %>% left_join(., file6, by = c("year", "clan")) #Join group sizes at sessions
+
+data <- data[,-26] #remove uneccessary column
+colnames(data)[c(26,27)] <- c("gs", "gs.noden") #rename
+data <- data %>% left_join(., file7 %>% mutate(year = Year) %>% group_by(year, Month) %>% 
+  summarize(TotalResidents = sum(TotalResidents), TotalMigratory = sum(TotalMigratory), TotalPrey = sum(TotalPrey)) %>%
+  group_by(year) %>%
+  summarize(avgRes = mean(TotalResidents), avgMig = mean(TotalMigratory), avgPrey = mean(TotalPrey)), by = c("year") 
+ )
+
+#Begin/end observation years by clan
+ns <- ne <- NULL
+ns[4] <- data$year[1] - 1989 + 2
+ns[1] <- data$year[28] - 1989 + 2
+ns[2] <- data$year[37] - 1989 + 2
+ns[3] <- data$year[46] - 1989 + 2
+ne[4] <- data$year[27] - 1989 + 1
+ne[1] <- data$year[36] - 1989 + 1
+ne[2] <- data$year[45] - 1989 + 1
+ne[3] <- data$year[54] - 1989 + 1
+```
+
+Model for vignette #1. 
+```{r, eval=FALSE}
+model{
+
+#--------#
+#-Priors-#
+#--------#
+
+#Intercept
+beta0 ~ dnorm(0, 0.1)
+#Autoregressive effect
+beta1 ~ dnorm(0, 0.1)
+#Lag effect of subgroup size @ kills
+for(k in 1:nclan){
+beta2[k] ~ dnorm(0, 0.1)
+}#end k loop
+#Random effect of year (time)
+for(t in 1:nyrs){
+beta3[t] ~ dnorm(0, tau.t)
+}#end t loop
+tau.t ~ dgamma(0.1, 0.1) #Precision for RE of year
+tau.p <- 1/(sig.p*sig.p) #Precision for process variation
+sig.p ~ dunif(15, 25) #Process variation
+#First year mean clan size
+mu[21,1] ~ dunif(15, 35) #Happy Zebra
+mu[21,2] ~ dunif(30, 50) #Serena North
+mu[21,3] ~ dunif(30, 50) #Serena South
+mu[1,4] ~ dunif(50, 70) #Talek West
+
+#------------#
+#-Likelihood-#
+#------------#
+
+for(i in 1:nobs){
+#Normally distributed clan size
+clan.size[i] ~ dnorm(mu[yr[i], clan[i]], tau.p)
+#Format group size, i, by t,k
+gs[yr[i], clan[i]] <- group[i]
+}#end i loop
+for(k in 1:nclan){
+for(t in ns[k]:ne[k]){
+#Linear predictor of mean clan size by clan
+mu[t,k] <- beta0 +                    #Intercept
+               beta1 * mu[t-1,k] +    #Autoregressive effect
+               beta2[k] * gs[t-1,k] + #Lag effect of subgroup size @ kills
+               beta3[t]               #Random effect of year (time)
+}#end t loop
+}#end k loop
+
+}
+```
+
+```{r, include=FALSE}
+#-Bugs Data-#
+bugs.data <- list(clan.size = data$clan.size, clan = as.numeric(data$clan), 
+                  yr = data$year - 1989 + 1, nyrs = max(data$year) - 1989 + 1, nobs = 54,
+                  ns = ns, ne = ne, nclan = 4, group = as.numeric(scale(data$gs.kill)))
+
+#-Parameters-#
+params <- c("beta0", "beta1", "beta2", "sig.p", "tau.t")
+
+#-MCMC settings-#
+nb <- 91000
+ni <- 100000
+nt <- 3
+nc <- 3
+na <- 100
+
+#-Inits-#
+inits <- function(){list(beta0 = runif(1, -1.5, -1), beta1 = runif(1, 1, 1.1))}
+
+#-Run clan size model-#
+out <- jagsUI(bugs.data, inits, params, "Vignette1.txt", n.thin=nt, 
+               n.chains=nc, n.burnin=nb, n.iter=ni, n.adapt=na,  parallel = TRUE)
+```
+Vignette 1 Table S1. JAGS output for the above model.
+```{r, echo=FALSE}
+#-Output-#
+round(out$summary[,-c(2,4:6,8:10)], digits = 2) %>% kable(.) %>% kable_styling(position = "center", full_width = F)
+```
+```{r, echo=FALSE}
+tmp <- as.data.frame(out$summary)
+tmp <- tmp[3:6,]
+tmp$type <- c("Happy Zebra", "Serena North", "Serena South", "Talek")
+ggplot(tmp) +
+  geom_errorbar(aes(x = type, ymin = mean, ymax = mean), width = 0.25) +
+  geom_errorbar(aes(x = type, ymin = `2.5%`, ymax = `97.5%`), width = 0, size = 1.25) +
+  geom_errorbar(aes(x = type, ymin = `25%`, ymax = `75%`), width = 0, size = 3) +
+  geom_hline(yintercept = 0, alpha = 0.75, col = "red") +
+   theme_few() +
+  theme(
+    panel.background = element_blank()) +
+  labs(y = "Lag Effect of Subgroup Size", x = "Clan", title = "")
+```
+
+Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a `r round(out$f$beta2[4]*100, digits = 2)`% probability that group size has a positive lag effect on clan size.
