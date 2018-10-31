@@ -1,8 +1,9 @@
-# Vignette #4 Code
+Vignette 4
+================
 
 Please see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1413563.svg)](https://doi.org/10.5281/zenodo.1413563) or [https://github.com/farrmt/HMSDS](https://github.com/farrmt/HMSDS) for code on multi-species distance sampling.
 
-Model for single-species framework for spotted hyenas.
+##### Model for single-species framework for spotted hyenas.
 
 ```r
 model{

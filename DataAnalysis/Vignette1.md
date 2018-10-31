@@ -1,8 +1,9 @@
-# Vignette #1 Code
+Vignette 1
+================
 
-Model for vignette #1. 
+##### Model for vignette 1
 
-```r
+``` r
 model{
 
 #--------#
@@ -53,84 +54,20 @@ mu[t,k] <- beta0 +                    #Intercept
 }
 ```
 
-
 Vignette 1 Table S1. JAGS output for the above model.
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> mean </th>
-   <th style="text-align:right;"> 2.5% </th>
-   <th style="text-align:right;"> 97.5% </th>
-   <th style="text-align:right;"> f </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> beta0 </td>
-   <td style="text-align:right;"> 1.25 </td>
-   <td style="text-align:right;"> -2.30 </td>
-   <td style="text-align:right;"> 5.48 </td>
-   <td style="text-align:right;"> 0.72 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta1 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 0.93 </td>
-   <td style="text-align:right;"> 1.06 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta2[1] </td>
-   <td style="text-align:right;"> -0.43 </td>
-   <td style="text-align:right;"> -5.27 </td>
-   <td style="text-align:right;"> 4.45 </td>
-   <td style="text-align:right;"> 0.57 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta2[2] </td>
-   <td style="text-align:right;"> 1.06 </td>
-   <td style="text-align:right;"> -3.50 </td>
-   <td style="text-align:right;"> 5.61 </td>
-   <td style="text-align:right;"> 0.68 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta2[3] </td>
-   <td style="text-align:right;"> 0.19 </td>
-   <td style="text-align:right;"> -5.10 </td>
-   <td style="text-align:right;"> 5.52 </td>
-   <td style="text-align:right;"> 0.53 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> beta2[4] </td>
-   <td style="text-align:right;"> 4.98 </td>
-   <td style="text-align:right;"> 1.95 </td>
-   <td style="text-align:right;"> 7.91 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> sig.p </td>
-   <td style="text-align:right;"> 15.44 </td>
-   <td style="text-align:right;"> 15.01 </td>
-   <td style="text-align:right;"> 16.65 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> tau.t </td>
-   <td style="text-align:right;"> 3.27 </td>
-   <td style="text-align:right;"> 0.06 </td>
-   <td style="text-align:right;"> 19.25 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> deviance </td>
-   <td style="text-align:right;"> 413.34 </td>
-   <td style="text-align:right;"> 406.77 </td>
-   <td style="text-align:right;"> 423.42 </td>
-   <td style="text-align:right;"> 1.00 </td>
-  </tr>
-</tbody>
-</table>
-![](https://raw.githubusercontent.com/farrmt/ZSL/master/Figures/Figure3.png)
 
-Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.8% probability that group size has a positive lag effect on clan size.
+|            |    mean|    2.5%|   97.5%|     f|
+|:-----------|-------:|-------:|-------:|-----:|
+| beta0      |    1.22|   -2.89|    5.46|  0.71|
+| beta1      |    1.00|    0.93|    1.08|  1.00|
+| beta2\[1\] |   -0.40|   -5.30|    4.54|  0.56|
+| beta2\[2\] |    1.07|   -3.48|    5.64|  0.68|
+| beta2\[3\] |    0.21|   -5.07|    5.40|  0.53|
+| beta2\[4\] |    4.89|    1.66|    7.93|  1.00|
+| sig.p      |   15.43|   15.01|   16.61|  1.00|
+| tau.t      |    2.83|    0.04|   16.63|  1.00|
+| deviance   |  413.30|  406.66|  423.37|  1.00|
+
+![](../Figures/Figure3.png)
+
+Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.73% probability that group size has a positive lag effect on clan size.
