@@ -12,14 +12,12 @@ options(stringsAsFactors = FALSE)
 #### Components of recruitment
 
 ```{r read and tidy data, echo = FALSE, include = FALSE}
-tblHyenasPerSession <- read.csv("https://raw.githubusercontent.com/farrmt/ZSL/master/RawData/tblHyenasPerSession.csv")
-tblSessions <- read.csv("https://raw.githubusercontent.com/farrmt/ZSL/master/RawData/tblSessions.csv")
-tblHyenas <- read.csv("https://raw.githubusercontent.com/farrmt/ZSL/master/RawData/tblHyenas.csv")
-
-tblSessions$date <- as.Date(tblSessions$date, format = '%d-%b-%y')
-tblSessions$session <- tolower(tblSessions$session)
-tblSessions$start <- as.POSIXct(tblSessions$start)
-tblSessions$stop <- as.POSIXct(tblSessions$stop)
+load('../RawData/RecruitmentData.Robj')
+# 
+# tblSessions$date <- as.Date(tblSessions$date, format = '%d-%b-%y')
+# tblSessions$session <- tolower(tblSessions$session)
+# tblSessions$start <- as.POSIXct(tblSessions$start)
+# tblSessions$stop <- as.POSIXct(tblSessions$stop)
 
 tblHyenasPerSession <- left_join(tblHyenasPerSession, tblSessions[,c('session', 'date','clan', 'location')], by = 'session')
 tblHyenasPerSession$age <- tblHyenasPerSession$date - 
