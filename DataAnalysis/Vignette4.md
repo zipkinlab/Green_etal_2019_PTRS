@@ -132,6 +132,6 @@ gs[i] ~ dpois(gs.lam.star[rep[i], site[i]]) T(1,)
 }
 ```
 
-![](../Figures/Figure6.tiff)
+![](../Figures/Figure6.png)
 
 Figure 6. Parameter estimates from a community model (a,b) and a single-species model for black-backed jackal and spotted hyena (c,d) showing the effects of disturbance (log scale) on the number of groups and subgroup sizes. Note that a positive effect of disturbance is interpreted as a higher value in the Talek region than in the Mara Triangle. Mean values are indicated with small horizontal bars; 50% and 95% credible intervals are shown with thick and thin vertical bars, respectively. (a) Effect of disturbance on the expected number of individuals or subgroups for all species as estimated using a community model. (b) Effect of disturbance on the expected subgroup size for each species estimated with a community model. (c) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected number of black-backed jackal (BBJ) and spotted hyena (SH) subgroups estimated in single-species models. (d) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected subgroup size of black-backed jackal and spotted hyena estimated with singlespecies models.
