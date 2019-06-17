@@ -8,7 +8,7 @@
 __________________________________________________________________________________________________________________________________________
 
 ## Abstract: 
-Mammalian carnivores are declining worldwide due to human activities. Behavioural
+<p>Mammalian carnivores are declining worldwide due to human activities. Behavioural
 indicators have the potential to help identify population trends
 and inform conservation actions, although this area of research is understudied.
 We investigate whether behaviour is linked to abundance in a
@@ -31,10 +31,10 @@ carnivore community (Vignettes 3 and 4). Our vignettes reveal intriguing
 relationships between behaviour and demography that should be explored
 in future research. Pairing behavioural studies with more traditional monitoring
 efforts can yield useful insights regarding population and
-community trends, and aid wildlife conservation and management.  
-  This article is part of the theme issue ‘Linking behaviour to dynamics
+community trends, and aid wildlife conservation and management.</p>
+<p>This article is part of the theme issue ‘Linking behaviour to dynamics
 of populations and communities: application of novel approaches in
-behavioural ecology to conservation’.
+behavioural ecology to conservation’.</p>
 
 ## Repository Directory
 ### [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis): Contains code for vignettes
