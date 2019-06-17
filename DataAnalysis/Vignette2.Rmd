@@ -12,13 +12,12 @@ options(stringsAsFactors = FALSE)
 #### Components of recruitment
 
 ```{r read and tidy data, echo = FALSE, include = FALSE}
-source('~/Documents/Research/BehavPopulationChange/raw_data/1_output_tidy_tbls/load_tidy_tbls.R')
-tblSessions <- read.csv('~/Documents/Research/BehavPopulationChange/raw_data/tblSessions.csv')
-
-tblSessions$date <- as.Date(tblSessions$date, format = '%d-%b-%y')
-tblSessions$session <- tolower(tblSessions$session)
-tblSessions$start <- as.POSIXct(tblSessions$start)
-tblSessions$stop <- as.POSIXct(tblSessions$stop)
+load('../RawData/RecruitmentData.Robj')
+# 
+# tblSessions$date <- as.Date(tblSessions$date, format = '%d-%b-%y')
+# tblSessions$session <- tolower(tblSessions$session)
+# tblSessions$start <- as.POSIXct(tblSessions$start)
+# tblSessions$stop <- as.POSIXct(tblSessions$stop)
 
 tblHyenasPerSession <- left_join(tblHyenasPerSession, tblSessions[,c('session', 'date','clan', 'location')], by = 'session')
 tblHyenasPerSession$age <- tblHyenasPerSession$date - 
