@@ -41,9 +41,10 @@ behavioural ecology to conservation’.</p>
 ## Repository Directory
 ### [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis): Contains code for vignettes
 ### [Figures](https://github.com/farrmt/ZSL/tree/master/Figures): Contains figures
+### [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData): Contains data to run analyses
 
 ## Data
-Data will be accessible upon acceptance
+Data is contained within [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
 
 ## Code
-See the following subdirectories for code and metadata: [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis)
+Code is contained within [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
