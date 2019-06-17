@@ -1,0 +1,273 @@
+---
+title: "Vignette 4"
+output: github_document
+---
+
+Please see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1413563.svg)](https://doi.org/10.5281/zenodo.1413563) or [https://github.com/farrmt/HMSDS](https://github.com/farrmt/HMSDS) for code on multi-species distance sampling.
+
+##### Model for single-species framework for black-backed jackal and spotted hyenas.
+
+```{r, eval=FALSE}
+model{
+
+#--------#
+#-PRIORS-#
+#--------#
+
+#Gamma
+r.N ~ dgamma(0.1, 0.1) #Number of subgroups
+r.G ~ dunif(0,20)      #Subgroup size
+
+#Expected Group Size
+beta0 ~ dnorm(0, 0.1)          #intercept parameter
+beta1 ~ dnorm(0, 0.1)
+beta2 ~ dnorm(0, 0.1)
+beta3 ~ dnorm(0, 0.1)
+beta4 ~ dnorm(0, 0.1)
+
+#Psi
+tau_p ~ dgamma(0.1, 0.1)  #Precision
+sig_p <- 1/sqrt(tau_p) #Variance
+
+#Detection
+gamma0 ~ dnorm(0, 0.1)
+gamma1 ~ dnorm(0, 0.1)
+
+#Expected Number of Groups
+alpha0 ~ dnorm(0, 0.1)    #intercept parameter
+alpha1 ~ dnorm(0, 0.1)
+alpha2 ~ dnorm(0, 0.1)
+alpha3 ~ dnorm(0, 0.1)
+alpha4 ~ dnorm(0, 0.1)
+
+for(j in 1:nsites){
+
+sigma[j] <- exp(gamma0 + gamma1 * region[j])
+
+psi[j] ~ dnorm(0, tau_p)       #transect effect parameter
+
+#------------#
+#-LIKELIHOOD-#
+#------------#
+
+for(t in 1:nreps[j]){
+
+#Construct cell probabilities for nG cells using numerical integration
+#Sum of the area (rectangles) under the detection function
+
+for(k in 1:nD){
+
+#Half normal detection function at midpt (length of rectangle)
+g[k,t,j] <- exp(-mdpt[k]*mdpt[k]/(2*sigma[j]*sigma[j]))
+
+#Proportion of each interval (width of rectangle) for both sides of the transect
+pi[k,t,j] <- v/B
+
+#Detection probability for each distance class k (area of each rectangle)
+f[k,t,j] <- g[k,t,j] * pi[k,t,j]
+
+#Conditional detection probability (scale to 1)
+fc[k,t,j] <- f[k,t,j]/pcap[t,j]
+
+}#end k loop
+
+#Detection probability at each transect (sum of rectangles)
+pcap[t,j] <- sum(f[1:nD,t,j])
+
+#Observed population @ each t,j (N-mixture)
+y[t,j] ~ dbin(pcap[t,j], N[t,j])
+
+#Latent Number of Groups @ each t,j (negative binomial)
+N[t,j] ~ dpois(lambda.star[t,j])
+
+#Expected Number of Groups
+lambda.star[t,j] <- rho[t,j] * lambda[t,j]
+
+#Overdispersion parameter for Expected Number of Groups
+rho[t,j] ~ dgamma(r.N, r.N)
+
+#Linear predictor for Expected Number of Groups
+lambda[t,j] <- exp(alpha0 + alpha1 * Disturbance[j] + alpha2 * Cattle[t,j] + alpha3 * Shoat[t,j] + alpha4 * Lions[t,j] + psi[j] + log(offset[j]))
+
+#Expected Group Size
+gs.lam.star[t,j] <- gs.lam[t,j] * gs.rho[t,j]
+
+#Overdispersion parameter for Expected Group Size
+gs.rho[t,j] ~ dgamma(r.G, r.G)
+
+#Linear predictor for Expected Group Size
+gs.lam[t,j] <- exp(beta0 + beta1 * Disturbance[j] + beta2 * Cattle[t,j] + beta3 * Shoat[t,j] + beta4 * Lions[t,j] + log(offset[j])) 
+
+#Abundance per transect
+GSrep[t,j] <- lambda.star[t,j] * gs.lam.star[t,j]
+
+}#end t loop
+
+#Abundance per transect averaged over surveys
+GSsite[j] <- mean(GSrep[1:nreps[j], j])
+
+#Mean detection probability @ each j
+psite[j] <- mean(pcap[1:nreps[j], j])
+
+}#end j loop
+
+#Mean detection probability for each species
+Dprop <- mean(psite[1:nsites])
+
+#Mean abundance per transect
+GS <- mean(GSsite[1:nsites])   
+
+#Abundance per transect for each region
+RegGS[1] <- mean(GSsite[1:13])     #Mara Triangle
+RegGS[2] <- mean(GSsite[14:17])    #Talek region
+
+for(i in 1:nobs){
+
+#Observed distance classes
+dclass[i] ~ dcat(fc[1:nD, rep[i], site[i]])
+
+#Observed Group Size (zero truncated negative binomial)
+gs[i] ~ dpois(gs.lam.star[rep[i], site[i]]) T(1,)
+
+}#end i loop
+
+}
+```
+
+
+```{r, include=FALSE}
+#-Libraries-#
+library(tidyverse)
+library(knitr)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+library(ggstance)
+library(jagsUI)
+
+#-Load data-#
+load(url("https://github.com/farrmt/HMSDS/blob/master/DataAnalysis/HMSDS.Rdata?raw=true"))
+
+load("Hyena2.Rdata")
+
+load("BBJ.Rdata")
+```
+
+```{r, echo=FALSE, warning=FALSE}
+sppnames <- c("Banded Mongoose", "Bat-eared Fox", "Black-backed Jackal", "Caracal",
+              "Cheetah", "Spotted Hyena", "Leopard", "African Lion", "Serval", "Side-striped Jackal", 
+              "Slender Mongoose", "The Community")
+
+values <- data.frame(rbind(cbind(c(HMSDS$q2.5$alpha1, HMSDS$q2.5$mu_a1),
+                   c(HMSDS$q25$alpha1, HMSDS$q25$mu_a1),
+                   c(HMSDS$mean$alpha1, HMSDS$mean$mu_a1),
+                   c(HMSDS$q75$alpha1, HMSDS$q75$mu_a1),
+                   c(HMSDS$q97.5$alpha1, HMSDS$q97.5$mu_a1)),
+                   cbind(c(HMSDS$q2.5$beta1, HMSDS$q2.5$mu_b1),
+                   c(HMSDS$q25$beta1, HMSDS$q25$mu_b1),
+                   c(HMSDS$mean$beta1, HMSDS$mean$mu_b1),
+                   c(HMSDS$q75$beta1, HMSDS$q75$mu_b1),
+                   c(HMSDS$q97.5$beta1, HMSDS$q97.5$mu_b1))))
+
+values <- data.frame(rep(sppnames, 2), values, rep(c("Number of subgroups", "Subgroup size"), each = 12))
+
+colnames(values) <- c("Species", "lower", "l25", "mean", "u75", "upper", "param")
+
+values <- values %>% drop_na(mean)
+
+Fig6AB <- ggplotGrob(ggplot() + 
+ggplot2::geom_errorbarh(data = values, aes(y = Species, xmin = mean, xmax = mean), 
+              height = 0.625) +
+ggplot2::geom_errorbarh(data = values, aes(y = Species, xmin = lower, xmax = upper), 
+              height = 0, size = 1.25) +
+ggplot2::geom_errorbarh(data = values, aes(y = Species, xmin = l25, xmax = u75), 
+              height = 0, size = 3.5) +
+facet_wrap(~param) +
+coord_cartesian(xlim = c(min(values$lower)-0.25, max(values$upper)+0.25)) +
+scale_y_discrete(limits = rev(levels(values$Species))) +
+geom_vline(xintercept = 0, alpha = 0.75) +
+geom_hline(yintercept = (1.5), linetype = "dotted") +
+theme_bw() +
+theme(axis.title = element_text(size = 14),
+      panel.grid = element_blank(),
+      legend.position = "none",
+      plot.margin = unit(c(-0.125,0.25,0,0.325), "in")) +
+labs(y = "", x = "Effect of disturbance (log scale)"))
+
+
+covariate <- c("Disturbance", "Cattle", "Sheep and Goats", "African Lion")
+
+values <- data.frame(rbind(cbind(c(BBJ$q2.5$alpha1, BBJ$q2.5$alpha2, BBJ$q2.5$alpha3, BBJ$q2.5$alpha4),
+                           c(BBJ$q25$alpha1, BBJ$q25$alpha2, BBJ$q25$alpha3, BBJ$q25$alpha4),
+                           c(BBJ$mean$alpha1, BBJ$mean$alpha2, BBJ$mean$alpha3, BBJ$mean$alpha4),
+                           c(BBJ$q75$alpha1, BBJ$q75$alpha2, BBJ$q75$alpha3, BBJ$q75$alpha4),
+                           c(BBJ$q97.5$alpha1, BBJ$q97.5$alpha2, BBJ$q97.5$alpha3, BBJ$q97.5$alpha4)),
+                           cbind(c(BBJ$q2.5$beta1, BBJ$q2.5$beta2, BBJ$q2.5$beta3, BBJ$q2.5$beta4),
+                           c(BBJ$q25$beta1, BBJ$q25$beta2, BBJ$q25$beta3, BBJ$q25$beta4),
+                           c(BBJ$mean$beta1, BBJ$mean$beta2, BBJ$mean$beta3, BBJ$mean$beta4),
+                           c(BBJ$q75$beta1, BBJ$q75$beta2, BBJ$q75$beta3, BBJ$q75$beta4),
+                           c(BBJ$q97.5$beta1, BBJ$q97.5$beta2, BBJ$q97.5$beta3, BBJ$q97.5$beta4)),
+                           cbind(c(Hyena2$q2.5$alpha1, Hyena2$q2.5$alpha2, Hyena2$q2.5$alpha3, Hyena2$q2.5$alpha4),
+                           c(Hyena2$q25$alpha1, Hyena2$q25$alpha2, Hyena2$q25$alpha3, Hyena2$q25$alpha4),
+                           c(Hyena2$mean$alpha1, Hyena2$mean$alpha2, Hyena2$mean$alpha3, Hyena2$mean$alpha4),
+                           c(Hyena2$q75$alpha1, Hyena2$q75$alpha2, Hyena2$q75$alpha3, Hyena2$q75$alpha4),
+                           c(Hyena2$q97.5$alpha1, Hyena2$q97.5$alpha2, Hyena2$q97.5$alpha3, Hyena2$q97.5$alpha4)),
+                           cbind(c(Hyena2$q2.5$beta1, Hyena2$q2.5$beta2, Hyena2$q2.5$beta3, Hyena2$q2.5$beta4),
+                           c(Hyena2$q25$beta1, Hyena2$q25$beta2, Hyena2$q25$beta3, Hyena2$q25$beta4),
+                           c(Hyena2$mean$beta1, Hyena2$mean$beta2, Hyena2$mean$beta3, Hyena2$mean$beta4),
+                           c(Hyena2$q75$beta1, Hyena2$q75$beta2, Hyena2$q75$beta3, Hyena2$q75$beta4),
+                           c(Hyena2$q97.5$beta1, Hyena2$q97.5$beta2, Hyena2$q97.5$beta3, Hyena2$q97.5$beta4))))
+
+values <- data.frame(rep(covariate, 4), values, rep(rep(c("Number of subgroups", "Subgroup size"), each = 4), 2), rep(c("BBJ", "SH"), each = 8))
+
+colnames(values) <- c("Covariate", "lower", "l25", "mean", "u75", "upper", "param", "species")
+
+values$Covariate <- factor(values$Covariate, levels = c("Disturbance", "African Lion", "Cattle", "Sheep and Goats"))
+
+Fig6CD <- ggplotGrob(ggplot() + 
+ggplot2::geom_errorbarh(data = values, aes(y = Covariate, xmin = mean, xmax = mean, col = species), 
+              height = 0.5, position = position_dodgev(height = -0.75)) +
+geom_linerangeh(data = values, aes(y = Covariate, xmin = lower, xmax = upper, col = species), 
+              size = 1.25, position = position_dodgev(height = -0.75)) +
+geom_linerangeh(data = values, aes(y = Covariate, xmin = l25, xmax = u75, col = species), 
+              size = 3.5, position = position_dodgev(height = -0.75)) +
+facet_wrap(~param, ncol = 2) +
+coord_cartesian(xlim = c(min(values$lower)-0.25, max(values$upper)+0.25)) +
+geom_vline(xintercept = 0, alpha = 0.75) +
+scale_color_manual(values = c("#000000", "#c1c1c1")) +
+theme_bw() +
+theme(axis.title = element_text(size = 14),
+      panel.grid = element_blank(),
+      legend.title = element_blank(),
+      legend.position = c(0.0625,0.9),
+      legend.background = element_rect(fill = "transparent"),
+      plot.margin = unit(c(-0.25,0.25,0.25,0.325), "in")) +
+labs(y = "", x = "Covariate effect (log scale)"))
+
+Fig6AB$widths <- Fig6CD$widths
+
+Figs6AB <- arrangeGrob(Fig6AB, top = grid::textGrob("(a)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = 0.3875, hjust = -8.5,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+Figs6AB <- arrangeGrob(Figs6AB, top = grid::textGrob("(b)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = 2.25, hjust = -23.75,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+Figs6CD <- arrangeGrob(Fig6CD, top = grid::textGrob("(c)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = -0.625, hjust = -8.875,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+Figs6CD <- arrangeGrob(Figs6CD, top = grid::textGrob("(d)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = 1.125, hjust = -23.75,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+
+#Uncomment code to save Figure 6.
+
+# tiff(file = "C:/Users/farrm/Documents/GitHub/ZSL/DataAnalysis/Figure6.tiff", res = 600, width = 8, height = 8, units = "in")
+# grid.arrange(arrangeGrob(Figs6AB, Figs6CD, ncol = 1, nrow = 2))
+# dev.off()
+```
+
+```{r, echo=FALSE}
+grid.arrange(arrangeGrob(Figs6AB, Figs6CD, ncol = 1, nrow = 2))
+```
+
+Figure 6. Parameter estimates from a community model (a,b) and a single-species model for black-backed jackal and spotted hyena (c,d) showing the effects of disturbance (log scale) on the number of groups and subgroup sizes. Note that a positive effect of disturbance is interpreted as a higher value in the Talek region than in the Mara Triangle. Mean values are indicated with small horizontal bars; 50% and 95% credible intervals are shown with thick and thin vertical bars, respectively. (a) Effect of disturbance on the expected number of individuals or subgroups for all species as estimated using a community model. (b) Effect of disturbance on the expected subgroup size for each species estimated with a community model. (c) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected number of black-backed jackal (BBJ) and spotted hyena (SH) subgroups estimated in single-species models. (d) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected subgroup size of black-backed jackal and spotted hyena estimated with singlespecies models.

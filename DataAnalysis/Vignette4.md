@@ -1,11 +1,11 @@
 Vignette 4
 ================
 
-Please see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1413563.svg)](https://doi.org/10.5281/zenodo.1413563) or [https://github.com/farrmt/HMSDS](https://github.com/farrmt/HMSDS) for code on multi-species distance sampling.
+Please see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1413563.svg)](https://doi.org/10.5281/zenodo.1413563) or <https://github.com/farrmt/HMSDS> for code on multi-species distance sampling.
 
-##### Model for single-species framework for spotted hyenas.
+##### Model for single-species framework for black-backed jackal and spotted hyenas.
 
-```r
+``` r
 model{
 
 #--------#
@@ -85,7 +85,7 @@ lambda.star[t,j] <- rho[t,j] * lambda[t,j]
 rho[t,j] ~ dgamma(r.N, r.N)
 
 #Linear predictor for Expected Number of Groups
-lambda[t,j] <- exp(alpha0 + alpha1 * region[j] + alpha2 * Cattle[t,j] + alpha3 * Shoat[t,j] + alpha4 * Lions[t,j] + psi[j] + log(offset[j]))
+lambda[t,j] <- exp(alpha0 + alpha1 * Disturbance[j] + alpha2 * Cattle[t,j] + alpha3 * Shoat[t,j] + alpha4 * Lions[t,j] + psi[j] + log(offset[j]))
 
 #Expected Group Size
 gs.lam.star[t,j] <- gs.lam[t,j] * gs.rho[t,j]
@@ -94,7 +94,7 @@ gs.lam.star[t,j] <- gs.lam[t,j] * gs.rho[t,j]
 gs.rho[t,j] ~ dgamma(r.G, r.G)
 
 #Linear predictor for Expected Group Size
-gs.lam[t,j] <- exp(beta0 + beta1 * region[j] + beta2 * Cattle[t,j] + beta3 * Shoat[t,j] + beta4 * Lions[t,j] + log(offset[j])) 
+gs.lam[t,j] <- exp(beta0 + beta1 * Disturbance[j] + beta2 * Cattle[t,j] + beta3 * Shoat[t,j] + beta4 * Lions[t,j] + log(offset[j])) 
 
 #Abundance per transect
 GSrep[t,j] <- lambda.star[t,j] * gs.lam.star[t,j]
@@ -131,3 +131,7 @@ gs[i] ~ dpois(gs.lam.star[rep[i], site[i]]) T(1,)
 
 }
 ```
+
+![](../Figures/Figure6.tiff)
+
+Figure 6. Parameter estimates from a community model (a,b) and a single-species model for black-backed jackal and spotted hyena (c,d) showing the effects of disturbance (log scale) on the number of groups and subgroup sizes. Note that a positive effect of disturbance is interpreted as a higher value in the Talek region than in the Mara Triangle. Mean values are indicated with small horizontal bars; 50% and 95% credible intervals are shown with thick and thin vertical bars, respectively. (a) Effect of disturbance on the expected number of individuals or subgroups for all species as estimated using a community model. (b) Effect of disturbance on the expected subgroup size for each species estimated with a community model. (c) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected number of black-backed jackal (BBJ) and spotted hyena (SH) subgroups estimated in single-species models. (d) Estimates of the effects of disturbance, African lion, cattle and sheep/goats on the expected subgroup size of black-backed jackal and spotted hyena estimated with singlespecies models.
