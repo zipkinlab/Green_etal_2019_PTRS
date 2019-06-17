@@ -31,8 +31,8 @@ carnivore community (Vignettes 3 and 4). Our vignettes reveal intriguing
 relationships between behaviour and demography that should be explored
 in future research. Pairing behavioural studies with more traditional monitoring
 efforts can yield useful insights regarding population and
-community trends, and aid wildlife conservation and management.
-This article is part of the theme issue ‘Linking behaviour to dynamics
+community trends, and aid wildlife conservation and management.  
+  This article is part of the theme issue ‘Linking behaviour to dynamics
 of populations and communities: application of novel approaches in
 behavioural ecology to conservation’.
 
