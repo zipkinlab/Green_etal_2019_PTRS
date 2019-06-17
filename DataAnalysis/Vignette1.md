@@ -103,6 +103,6 @@ Vignette 1 Table S1. JAGS output for the above model.
 | tau.t      |    1.39|    0.02|   11.30|  1.00|
 | deviance   |  415.77|  407.17|  426.68|  1.00|
 
-![](Vignette1_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](../Figures/Figure3.png)
 
 Figure 3. Annual mean estimates of the total size of each of the four hyena clans monitored. One year lag effect of mean hyena subgroup size found at kills on clan size for each of the four clans. We estimated a 99.8% probability that subgroup size had a positive lag effect on clan size in Talek, but no effect was estimated on the other clans.
