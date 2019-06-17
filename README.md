@@ -4,6 +4,8 @@
 
 ### Philosophical Transactions of the Royal Society
 
+### Code/Data DOI: [![DOI](https://zenodo.org/badge/153342900.svg)](https://zenodo.org/badge/latestdoi/153342900)
+
 ### Please contact the first author for questions about the code or data: David S. Green (davidsgreen@gmail.com)
 __________________________________________________________________________________________________________________________________________
 
