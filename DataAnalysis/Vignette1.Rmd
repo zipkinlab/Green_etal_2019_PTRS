@@ -9,6 +9,7 @@ library(tidyverse)
 library(knitr)
 library(ggplot2)
 library(ggthemes)
+library(gridExtra)
 library(jagsUI)
 
 #-Functions-#
@@ -23,12 +24,16 @@ gm_mean = function(x, na.rm=TRUE){
 
 #-Import data-#
 file1 <- read.csv("../RawData/yearly_descriptives.csv", header = TRUE)
-file2 <- read.csv("../RawData/yearly_demography.csv", header = TRUE)
+file2 <- read.csv("../RawData/DSG_yearly_demography.csv", header = TRUE)
 file3 <- read.csv("../RawData/LH1SessionsFinal_AllClansCompiled.csv", header = TRUE)
 file4 <- read.csv("../RawData/sessions_per_year.csv", header = TRUE)
 file5 <- read.csv("../RawData/behavior_at_kills.csv", header = TRUE)
 file6 <- read.csv("../RawData/group_size_by_year.csv", header = TRUE)
 file7 <- read.csv("../RawData/HerbivoresThrough2013.csv", header = TRUE)
+
+#-Clan size files-#
+file2$DSGclan.size[is.na(file2$DSGclan.size)] <- file2$clan.size[is.na(file2$DSGclan.size)]
+file2 <- file2 %>% filter(!(clan != "talek" & year == "2008"))
 
 #-Data manipluation-#
 data <- file1 #Use file 1 as baseline
@@ -57,8 +62,10 @@ data <- data %>% left_join(., file5 %>%
 data$gs.kill.nomig[is.na(data$gs.kill.nomig)] <- 0 #Replace NA with zero
 data <- data %>% left_join(., file6, by = c("year", "clan")) #Join group sizes at sessions
 
-data <- data[,-26] #remove uneccessary column
-colnames(data)[c(26,27)] <- c("gs", "gs.noden") #rename
+# data <- data[,-26] #remove uneccessary column
+data <- data[,-25] #remove uneccessary column
+# colnames(data)[c(26,27)] <- c("gs", "gs.noden") #rename
+colnames(data)[c(25,26)] <- c("gs", "gs.noden") #rename
 data <- data %>% left_join(., file7 %>% mutate(year = Year) %>% group_by(year, Month) %>% 
   summarize(TotalResidents = sum(TotalResidents), TotalMigratory = sum(TotalMigratory), TotalPrey = sum(TotalPrey)) %>%
   group_by(year) %>%
@@ -69,12 +76,12 @@ data <- data %>% left_join(., file7 %>% mutate(year = Year) %>% group_by(year, M
 ns <- ne <- NULL
 ns[4] <- data$year[1] - 1989 + 2
 ns[1] <- data$year[28] - 1989 + 2
-ns[2] <- data$year[37] - 1989 + 2
-ns[3] <- data$year[46] - 1989 + 2
+ns[2] <- data$year[37] - 1989 + 2 #changed 4/3 37 to 38
+ns[3] <- data$year[46] - 1989 + 2 #changed 4/3 46 to 48
 ne[4] <- data$year[27] - 1989 + 1
-ne[1] <- data$year[36] - 1989 + 1
-ne[2] <- data$year[45] - 1989 + 1
-ne[3] <- data$year[54] - 1989 + 1
+ne[1] <- data$year[36] - 1989 + 1 #changed 4/3 36 to 37
+ne[2] <- data$year[45] - 1989 + 1 #changed 4/3 45 to 47
+ne[3] <- data$year[54] - 1989 + 1 #changed 4/3 54 to 57
 ```
 
 ##### Model for vignette 1 
@@ -129,9 +136,13 @@ mu[t,k] <- beta0 +                    #Intercept
 }
 ```
 
-```{r, include=FALSE}
+```{r, eval=FALSE}
+#Evaluate this R chunk if Vignette1.Rdata has not been produced.
+
+#data$DSGclan.size[is.na(data$DSGclan.size)] <- data$clan.size[is.na(data$DSGclan.size)]
+
 #-Bugs Data-#
-bugs.data <- list(clan.size = data$clan.size, clan = as.numeric(data$clan), 
+bugs.data <- list(clan.size = data$DSGclan.size, clan = as.numeric(data$clan), 
                   yr = data$year - 1989 + 1, nyrs = max(data$year) - 1989 + 1, nobs = 54,
                   ns = ns, ne = ne, nclan = 4, group = as.numeric(scale(data$gs.kill)))
 
@@ -151,25 +162,74 @@ inits <- function(){list(beta0 = runif(1, -1.5, -1), beta1 = runif(1, 1, 1.1))}
 #-Run clan size model-#
 out <- jagsUI(bugs.data, inits, params, "Vignette1.txt", n.thin=nt, 
                n.chains=nc, n.burnin=nb, n.iter=ni, n.adapt=na,  parallel = TRUE)
+
+save(out, file = "Vignette1.Rdata")
 ```
+
+```{r, eval=TRUE}
+#Evaluate this R chunk if Vignette1.Rdata already exist.
+load(file = "Vignette1.Rdata")
+```
+
 Vignette 1 Table S1. JAGS output for the above model.
 ```{r, echo=FALSE}
 #-Output-#
 round(out$summary[,-c(2,4:6,8:10)], digits = 2) %>% kable(., format = "markdown")
 ```
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, results="hide"}
+levels(data$clan)[levels(data$clan)=="talek"] <- "Talek West"
+levels(data$clan)[levels(data$clan)=="serena.n"] <- "Serena North"
+levels(data$clan)[levels(data$clan)=="happy.zebra"] <- "Happy Zebra"
+levels(data$clan)[levels(data$clan)=="serena.s"] <- "Serena South"
+
+data$clan <- factor(data$clan, levels = c("Talek West", "Serena North", "Happy Zebra", "Serena South"))
+
+Fig3A <- ggplotGrob(ggplot(data = data, aes(x=year, y=DSGclan.size)) + 
+  geom_line(aes(group=clan, linetype=clan)) + 
+  geom_point(aes(shape=clan), size = 2, fill = "grey") +
+  scale_shape_manual(values=c(1, 21, 25, 22)) +
+  labs(y = "Clan size", x = "\nYear") + 
+  theme_few() +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.2, 0.8125),
+        legend.background = element_rect(fill = "transparent")))
+
 tmp <- as.data.frame(out$summary)
 tmp <- tmp[3:6,]
 tmp$type <- c("Happy Zebra", "Serena North", "Serena South", "Talek")
-ggplot(tmp) +
+
+Fig3B <- ggplotGrob(ggplot(tmp) +
   geom_errorbar(aes(x = type, ymin = mean, ymax = mean), width = 0.25) +
   geom_errorbar(aes(x = type, ymin = `2.5%`, ymax = `97.5%`), width = 0, size = 1.25) +
   geom_errorbar(aes(x = type, ymin = `25%`, ymax = `75%`), width = 0, size = 3) +
-  geom_hline(yintercept = 0, alpha = 0.75, col = "red") +
+  geom_hline(yintercept = 0, alpha = 0.75) +
+  scale_x_discrete(labels = c("Happy Zebra" = "Happy\nZebra", "Serena North" = "Serena\nNorth",
+                              "Serena South" = "Serena\nSouth", "Talek" = "Talek")) +
    theme_few() +
   theme(
-    panel.background = element_blank()) +
-  labs(y = "Lag Effect of Subgroup Size", x = "Clan", title = "")
+    panel.background = element_blank(),
+    axis.text.x = element_text(angle = 50, hjust = 0.5, vjust = 0.5)) +
+  labs(y = "Lag Effect of Subgroup Size", x = "", title = ""))
+
+Fig3B$heights <- Fig3A$heights
+
+Figs3A <- arrangeGrob(Fig3A, top = grid::textGrob("(a)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = 0, hjust = -1.5,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+Figs3B <- arrangeGrob(Fig3B, top = grid::textGrob("(b)", x = unit(0, "in"), 
+                                         y = unit(0, "in"), just=c("left","top"), vjust = 0, hjust = -1,
+                                         gp=grid::gpar(fontsize=12, fontface = 3)))
+
+#Uncomment code to save Figure 3.
+
+# tiff(file = "C:/Users/farrm/Documents/GitHub/ZSL/DataAnalysis/Figure3.tiff", res = 600, width = 8, height = 4, units = "in")
+# grid.arrange(arrangeGrob(Figs3A, Figs3B, ncol = 2, nrow = 1))
+# dev.off()
 ```
 
-Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a `r round(out$f$beta2[4]*100, digits = 2)`% probability that group size has a positive lag effect on clan size.
+```{r, echo=FALSE}
+grid.arrange(arrangeGrob(Figs3A, Figs3B, ncol = 2, nrow = 1))
+```
+
+Figure 3. Annual mean estimates of the total size of each of the four hyena clans monitored. One year lag effect of mean hyena subgroup size found at kills on clan size for each of the four clans. We estimated a 99.8% probability that subgroup size had a positive lag effect on clan size in Talek, but no effect was estimated on the other clans.

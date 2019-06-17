@@ -54,20 +54,55 @@ mu[t,k] <- beta0 +                    #Intercept
 }
 ```
 
+``` r
+#Evaluate this R chunk if Vignette1.Rdata has not been produced.
+
+#data$DSGclan.size[is.na(data$DSGclan.size)] <- data$clan.size[is.na(data$DSGclan.size)]
+
+#-Bugs Data-#
+bugs.data <- list(clan.size = data$DSGclan.size, clan = as.numeric(data$clan), 
+                  yr = data$year - 1989 + 1, nyrs = max(data$year) - 1989 + 1, nobs = 54,
+                  ns = ns, ne = ne, nclan = 4, group = as.numeric(scale(data$gs.kill)))
+
+#-Parameters-#
+params <- c("beta0", "beta1", "beta2", "sig.p", "tau.t")
+
+#-MCMC settings-#
+nb <- 91000
+ni <- 100000
+nt <- 3
+nc <- 3
+na <- 100
+
+#-Inits-#
+inits <- function(){list(beta0 = runif(1, -1.5, -1), beta1 = runif(1, 1, 1.1))}
+
+#-Run clan size model-#
+out <- jagsUI(bugs.data, inits, params, "Vignette1.txt", n.thin=nt, 
+               n.chains=nc, n.burnin=nb, n.iter=ni, n.adapt=na,  parallel = TRUE)
+
+save(out, file = "Vignette1.Rdata")
+```
+
+``` r
+#Evaluate this R chunk if Vignette1.Rdata already exist.
+load(file = "Vignette1.Rdata")
+```
+
 Vignette 1 Table S1. JAGS output for the above model.
 
 |            |    mean|    2.5%|   97.5%|     f|
 |:-----------|-------:|-------:|-------:|-----:|
-| beta0      |    1.22|   -2.89|    5.46|  0.71|
-| beta1      |    1.00|    0.93|    1.08|  1.00|
-| beta2\[1\] |   -0.40|   -5.30|    4.54|  0.56|
-| beta2\[2\] |    1.07|   -3.48|    5.64|  0.68|
-| beta2\[3\] |    0.21|   -5.07|    5.40|  0.53|
-| beta2\[4\] |    4.89|    1.66|    7.93|  1.00|
-| sig.p      |   15.43|   15.01|   16.61|  1.00|
-| tau.t      |    2.83|    0.04|   16.63|  1.00|
-| deviance   |  413.30|  406.66|  423.37|  1.00|
+| beta0      |    0.53|   -3.51|    4.63|  0.60|
+| beta1      |    1.03|    0.96|    1.09|  1.00|
+| beta2\[1\] |   -1.14|   -5.95|    3.64|  0.68|
+| beta2\[2\] |    0.20|   -4.46|    4.85|  0.53|
+| beta2\[3\] |   -0.36|   -5.68|    5.00|  0.55|
+| beta2\[4\] |    4.73|    0.55|    8.25|  0.99|
+| sig.p      |   15.46|   15.01|   16.68|  1.00|
+| tau.t      |    1.39|    0.02|   11.30|  1.00|
+| deviance   |  415.77|  407.17|  426.68|  1.00|
 
-![](../Figures/Figure3.png)
+![](Vignette1_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
-Figure 3. One year lag effect of mean group size @ kills per year on clan size. There is a 99.73% probability that group size has a positive lag effect on clan size.
+Figure 3. Annual mean estimates of the total size of each of the four hyena clans monitored. One year lag effect of mean hyena subgroup size found at kills on clan size for each of the four clans. We estimated a 99.8% probability that subgroup size had a positive lag effect on clan size in Talek, but no effect was estimated on the other clans.
