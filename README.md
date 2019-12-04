@@ -1,4 +1,4 @@
-# Can hyena behavior predict abundances of sympatric carnivores?
+# [Can hyena behavior predict abundances of sympatric carnivores?](https://royalsocietypublishing.org/doi/10.1098/rstb.2018.0052)
 
 ### [David S. Green](https://inr.oregonstate.edu/people/david-green), [Matthew T. Farr](https://farrmt.github.io/), [Kay E. Holekamp](http://www.holekamplab.org/), [Eli D. Strauss](https://straussed.github.io/), & [Elise F. Zipkin](https://msu.edu/user/ezipkin/)
 
@@ -42,6 +42,7 @@ behavioural ecology to conservation’.</p>
 ### [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis): Contains code for vignettes
 ### [Figures](https://github.com/farrmt/ZSL/tree/master/Figures): Contains figures
 ### [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData): Contains data to run analyses
+### [PublishedPDF](https://github.com/farrmt/Green_etal_2019_PTRS/blob/master/Green_et_al-2019-PTRS.pdf): PDF of published paper
 
 ## Data
 Data is contained within [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
