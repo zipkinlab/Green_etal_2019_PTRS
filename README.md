@@ -39,13 +39,13 @@ of populations and communities: application of novel approaches in
 behavioural ecology to conservation’.</p>
 
 ## Repository Directory
-### [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis): Contains code for vignettes
-### [Figures](https://github.com/farrmt/ZSL/tree/master/Figures): Contains figures
-### [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData): Contains data to run analyses
-### [PublishedPDF](https://github.com/farrmt/Green_etal_2019_PTRS/blob/master/Green_et_al-2019-PTRS.pdf): PDF of published paper
+### [DataAnalysis](./DataAnalysis/): Contains code for vignettes
+### [Figures](./Figures/): Contains figures
+### [RawData](./RawData/): Contains data to run analyses
+### [PublishedPDF](./Green_et_al-2019-PTRS.pdf/): PDF of published paper
 
 ## Data
-Data is contained within [RawData](https://github.com/farrmt/Green_etal_2019_PTRS/tree/master/RawData) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
+Data is contained within [RawData](./RawData/) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
 
 ## Code
-Code is contained within [DataAnalysis](https://github.com/farrmt/ZSL/tree/master/DataAnalysis) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
+Code is contained within [DataAnalysis](./DataAnalysis/) and archived on [Zenodo](https://doi.org/10.5281/zenodo.3246353).
